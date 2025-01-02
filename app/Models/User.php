@@ -12,7 +12,25 @@ class User extends Authenticatable
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
 
+    protected $table = 'users';
+
     protected $guarded = ['id'];
+
+    public function occupation(){
+        return $this->belongsTo(Occupation::class);
+    }
+
+    public function userFOW(){
+        return $this->hasMany(UserFOW::class);
+    }
+
+    public function friend(){
+        return $this->hasMany(Friend::class);
+    }
+
+    public function notification(){
+        return $this->hasMany(Notification::class);
+    }
 
     /**
      * The attributes that are mass assignable.

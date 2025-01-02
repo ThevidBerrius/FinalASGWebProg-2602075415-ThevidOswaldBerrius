@@ -7,4 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Occupation extends Model
 {
     //
+    protected $table = 'occupations';
+
+    protected $guarded = ['id'];
 }
