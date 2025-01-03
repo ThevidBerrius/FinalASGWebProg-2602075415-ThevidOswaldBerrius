@@ -12,22 +12,33 @@
       <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
               <li class="nav-item">
-                  <a class="nav-link active" aria-current="page" href="#">Home</a>
+                  <a class="nav-link active" aria-current="page" href="#">@lang('lang.home')</a>
               </li>
               <li class="nav-item">
-                  <a class="nav-link" href="#">About</a>
+                  <a class="nav-link" href="#">@lang('lang.about')</a>
               </li>
               <li class="nav-item">
-                  <a class="nav-link" href="#">Contact</a>
+                  <a class="nav-link" href="#">@lang('lang.contact')</a>
               </li>
           </ul>
 
           <!-- Right Section -->
           <ul class="navbar-nav">
+              <!-- Language Dropdown -->
+              <li class="nav-item dropdown ms-4">
+                  <a class="nav-link dropdown-toggle" href="#" id="languageDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      @lang('lang.language')
+                  </a>
+                  <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="languageDropdown">
+                      <li><a class="dropdown-item" href="{{ url('lang/en') }}">English</a></li>
+                      <li><a class="dropdown-item" href="{{ url('lang/id') }}">Indonesia</a></li>
+                  </ul>
+              </li>
+
               <!-- Notification Dropdown -->
-              <li class="nav-item dropdown">
+              <li class="nav-item dropdown ms-4">
                   <a class="nav-link dropdown-toggle position-relative d-flex align-items-center" href="#" id="notificationDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                      <i class="bi bi-bell me-1"></i> Notifications
+                      <i class="bi bi-bell me-1"></i> @lang('lang.notification')
                       <!-- Mock Notification Count -->
                       <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
                           3
@@ -35,7 +46,7 @@
                       </span>
                   </a>
                   <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="notificationDropdown">
-                      <li class="dropdown-header">Notifications</li>
+                      <li class="dropdown-header">@lang('lang.notifications')</li>
                       <li>
                           <a class="dropdown-item" href="#">
                               <small>2 hours ago</small><br>
@@ -51,19 +62,19 @@
                       </li>
                       <li><hr class="dropdown-divider"></li>
                       <li>
-                          <a class="dropdown-item text-center" href="#">View All</a>
+                          <a class="dropdown-item text-center" href="#">@lang('lang.view_all')</a>
                       </li>
                   </ul>
               </li>
 
               <!-- Profile Dropdown -->
-              <li class="nav-item dropdown ms-4"> <!-- Added 'ms-4' for spacing -->
+              <li class="nav-item dropdown ms-4"> 
                   <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="profileDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                      <i class="bi bi-person-circle me-1"></i> Profile
+                      <i class="bi bi-person-circle me-1"></i> @lang('lang.profile')
                   </a>
                   <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
-                      <li><a class="dropdown-item" href="#">Profile</a></li>
-                      <li><a class="dropdown-item" href="#">Logout</a></li>
+                      <li><a class="dropdown-item" href="#">@lang('lang.profile')</a></li>
+                      <li><a class="dropdown-item" href="#">@lang('lang.logout')</a></li>
                   </ul>
               </li>
           </ul>
