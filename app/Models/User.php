@@ -16,19 +16,23 @@ class User extends Authenticatable
 
     protected $guarded = ['id'];
 
-    public function occupation(){
+    public function occupation()
+    {
         return $this->belongsTo(Occupation::class);
     }
 
-    public function userFOW(){
+    public function userFOW()
+    {
         return $this->hasMany(UserFOW::class);
     }
 
-    public function friend(){
+    public function friend()
+    {
         return $this->hasMany(Friend::class);
     }
 
-    public function notification(){
+    public function notification()
+    {
         return $this->hasMany(Notification::class);
     }
 
@@ -41,8 +45,12 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'occupation_id',
+        'gender',
+        'linkedin_username',
+        'phone_number',
+        'experience_years',
     ];
-
     /**
      * The attributes that should be hidden for serialization.
      *

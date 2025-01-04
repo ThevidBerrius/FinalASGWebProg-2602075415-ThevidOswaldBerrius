@@ -7,20 +7,11 @@ use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Http\Request;
+use App\Models\Occupation;
 
 class RegisterController extends Controller
 {
-    /*
-    |--------------------------------------------------------------------------
-    | Register Controller
-    |--------------------------------------------------------------------------
-    |
-    | This controller handles the registration of new users as well as their
-    | validation and creation. By default this controller uses a trait to
-    | provide this functionality without requiring any additional code.
-    |
-    */
-
     use RegistersUsers;
 
     /**
@@ -41,6 +32,17 @@ class RegisterController extends Controller
     }
 
     /**
+     * Show the registration form with occupation data.
+     *
+     * @return \Illuminate\View\View
+     */
+    public function showRegistrationForm()
+    {
+        $occupations = Occupation::all(); 
+        return view('auth.register', compact('occupations'));
+    }
+
+    /**
      * Get a validator for an incoming registration request.
      *
      * @param  array  $data
@@ -52,6 +54,14 @@ class RegisterController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'occupation_id' => ['required', 'exists:occupations,id'],
+            'gender' => ['required', 'in:male,female'],
+            'linkedin_username' => [
+                'required',
+                'regex:/^https:\/\/www\.linkedin\.com\/in\/[a-zA-Z0-9-_]+$/'
+            ],
+            'phone_number' => ['required', 'regex:/^\d{10,15}$/'],
+            'experience_years' => ['required', 'integer', 'min:0'],
         ]);
     }
 
@@ -67,6 +77,11 @@ class RegisterController extends Controller
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+            'occupation_id' => $data['occupation_id'],
+            'gender' => $data['gender'],
+            'linkedin_username' => $data['linkedin_username'],
+            'phone_number' => $data['phone_number'],
+            'experience_years' => $data['experience_years'],
         ]);
     }
 }

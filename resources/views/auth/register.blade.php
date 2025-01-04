@@ -61,6 +61,94 @@
                             </div>
                         </div>
 
+                        <div class="row mb-3">
+                            <label for="occupation_id" class="col-md-4 col-form-label text-md-end">{{ __('Occupation') }}</label>
+
+                            <div class="col-md-6">
+                                <select id="occupation_id" name="occupation_id" class="form-control @error('occupation_id') is-invalid @enderror" required>
+                                    <option value="">Choose...</option>
+                                    @foreach($occupations as $occupation)
+                                        <option value="{{ $occupation->id }}" {{ old('occupation_id') == $occupation->id ? 'selected' : '' }}>{{ $occupation->name }}</option>
+                                    @endforeach
+                                </select>
+
+                                @error('occupation_id')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label for="gender" class="col-md-4 col-form-label text-md-end">{{ __('Gender') }}</label>
+
+                            <div class="col-md-6">
+                                <select id="gender" name="gender" class="form-control @error('gender') is-invalid @enderror" required>
+                                    <option value="">Choose...</option>
+                                    <option value="male" {{ old('gender') == 'male' ? 'selected' : '' }}>Male</option>
+                                    <option value="female" {{ old('gender') == 'female' ? 'selected' : '' }}>Female</option>
+                                </select>
+
+                                @error('gender')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label for="linkedin_username" class="col-md-4 col-form-label text-md-end">{{ __('LinkedIn Username') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="linkedin_username" type="text" class="form-control @error('linkedin_username') is-invalid @enderror" name="linkedin_username" value="{{ old('linkedin_username') }}" required>
+                                <small>Format: https://www.linkedin.com/in/<username></small>
+
+                                @error('linkedin_username')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label for="phone_number" class="col-md-4 col-form-label text-md-end">{{ __('Phone Number') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="phone_number" type="text" class="form-control @error('phone_number') is-invalid @enderror" name="phone_number" value="{{ old('phone_number') }}" required>
+
+                                @error('phone_number')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label for="experience_years" class="col-md-4 col-form-label text-md-end">{{ __('Years of Experience') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="experience_years" type="number" class="form-control @error('experience_years') is-invalid @enderror" name="experience_years" value="{{ old('experience_years') }}" required>
+
+                                @error('experience_years')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label for="price" class="col-md-4 col-form-label text-md-end">{{ __('Registration Price') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="price" type="text" class="form-control" value="{{ rand(100000, 125000) }}" readonly>
+                            </div>
+                        </div>
+
                         <div class="row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">
