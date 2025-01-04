@@ -11,4 +11,16 @@ return [
   'language' => 'Language',
   'logout' => 'Logout',
   'view_all' => 'View All',
+  'login' => 'Login',
+  'register' => 'Register',
+  'name' => 'Name',
+  'email' => 'Email Address',
+  'password' => 'Password',
+  'confirm_password' => 'Confirm Password',
+  'occupation' => 'Occupation',
+  'gender' => 'Gender',
+  'linkedin' => 'LinkedIn Username',
+  'phone' => 'Phone Number',
+  'experience' => 'Year of Experience',
+  'registration_price' => 'Registration Price'
 ];

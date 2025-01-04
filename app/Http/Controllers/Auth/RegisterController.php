@@ -38,7 +38,7 @@ class RegisterController extends Controller
      */
     public function showRegistrationForm()
     {
-        $occupations = Occupation::all(); 
+        $occupations = Occupation::all();
         return view('auth.register', compact('occupations'));
     }
 
@@ -83,5 +83,14 @@ class RegisterController extends Controller
             'phone_number' => $data['phone_number'],
             'experience_years' => $data['experience_years'],
         ]);
+    }
+
+    protected function registered(Request $request, $user)
+    {
+        $price = rand(100000, 125000);
+
+        session(['registration_fee' => $price]);
+
+        return redirect()->route('auth.payment');
     }
 }
