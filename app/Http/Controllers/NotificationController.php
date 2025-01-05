@@ -22,13 +22,12 @@ class NotificationController extends Controller
         $notification = Notification::findOrFail($id);
 
         if ($action === 'accept') {
-            Friend::where('user_id', $notification->user_id)
-                ->where('friend_id', $notification->sender_id)
+            Friend::where('user_id', $notification->sender_id)
+                ->where('friend_id', $notification->user_id)
                 ->update(['status' => 'accepted']);
-
         } elseif ($action === 'decline') {
-            Friend::where('user_id', $notification->user_id)
-                ->where('friend_id', $notification->sender_id)
+            Friend::where('user_id', $notification->sender_id)
+                ->where('friend_id', $notification->user_id)
                 ->delete();
         }
 
@@ -36,4 +35,5 @@ class NotificationController extends Controller
 
         return redirect()->back()->with('success', 'Action performed successfully.');
     }
+
 }

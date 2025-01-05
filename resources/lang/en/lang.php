@@ -22,5 +22,8 @@ return [
   'linkedin' => 'LinkedIn Username',
   'phone' => 'Phone Number',
   'experience' => 'Year of Experience',
-  'registration_price' => 'Registration Price'
+  'registration_price' => 'Registration Price',
+  'users' => 'Users',
+  'add_friend' => 'Add Friend',
+  'friend_request_sent' => 'Friend Request Sent!',
 ];

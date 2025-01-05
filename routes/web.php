@@ -20,13 +20,9 @@ Route::post('/payment', [PaymentController::class, 'processPayment'])->name('aut
 Route::get('/', [HomeController::class, 'index'])->middleware('auth')->name('home');
 
 Route::post('/send-friend-request/{friendId}', [HomeController::class, 'sendFriendRequest'])->name('sendFriendRequest');
-Route::post('/accept-friend-request/{friendId}', [HomeController::class, 'acceptFriendRequest'])->name('acceptFriendRequest');
-Route::post('/decline-friend-request/{friendId}', [HomeController::class, 'declineFriendRequest'])->name('declineFriendRequest');
 
 Route::get('/notifications', [NotificationController::class, 'getNotifications'])->name('notifications.index');
 Route::post('/notifications/{id}/{action}', [NotificationController::class, 'handleNotification'])->name('notifications.handle');
-
-
 
 Route::get('/lang/{locale}', function ($locale) {
     if (in_array($locale, ['en', 'id'])) {

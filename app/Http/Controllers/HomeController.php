@@ -27,16 +27,42 @@ class HomeController extends Controller
     public function index()
     {
         $currentUserId = auth()->id();
-        $users = User::where('id', '!=', $currentUserId)->get();
+
+        $users = User::where('id', '!=', $currentUserId)
+            ->whereDoesntHave('friend', function ($query) use ($currentUserId) {
+                $query->where('friend_id', $currentUserId)
+                    ->whereIn('status', ['accepted', 'pending', 'declined']);
+            })
+            ->whereDoesntHave('friend', function ($query) use ($currentUserId) {
+                $query->where('user_id', $currentUserId)
+                    ->whereIn('status', ['accepted', 'pending', 'declined']);
+            })
+            ->get();
+
         $notifications = Notification::where('user_id', $currentUserId)->get();
 
-        return view('home', compact('users', 'notifications'));
-    }
+        $usersWithFriendRequestStatus = $users->map(function ($user) use ($currentUserId) {
+            $user->friendRequestExists = Friend::where(function ($query) use ($currentUserId, $user) {
+                $query->where('user_id', $currentUserId)
+                    ->where('friend_id', $user->id)
+                    ->where('status', 'pending');
+            })->orWhere(function ($query) use ($currentUserId, $user) {
+                $query->where('friend_id', $currentUserId)
+                    ->where('user_id', $user->id)
+                    ->where('status', 'pending');
+            })->exists();
 
+            return $user;
+        });
+
+        return view('home', [
+            'usersWithFriendRequestStatus' => $usersWithFriendRequestStatus,
+            'notifications' => $notifications
+        ]);
+    }
 
     public function sendFriendRequest($friendId)
     {
-        // Simpan ke tabel friends
         $friend = new Friend();
         $friend->user_id = auth()->id();
         $friend->friend_id = $friendId;
@@ -44,46 +70,14 @@ class HomeController extends Controller
         $friend->status = 'pending';
         $friend->save();
 
-        // Simpan notifikasi ke tabel notifications
         $notification = new Notification();
-        $notification->user_id = $friendId; // User yang menerima permintaan
-        $notification->sender_id = auth()->id(); // User yang mengirim permintaan
+        $notification->user_id = $friendId; 
+        $notification->sender_id = auth()->id(); 
         $notification->content = 'You have a new friend request.';
         $notification->type = 'request';
         $notification->save();
 
         return redirect()->route('home')->with('success', 'Friend request sent successfully.');
-    }
-
-    public function acceptFriendRequest($friendId)
-    {
-        $friend = Friend::where('user_id', auth()->id())
-            ->where('friend_id', $friendId)
-            ->where('status', 'pending')
-            ->first();
-
-        if ($friend) {
-            $friend->status = 'accepted';
-            $friend->save();
-
-        }
-
-        return redirect()->back()->with('success', 'Friend request accepted.');
-    }
-
-    public function declineFriendRequest($friendId)
-    {
-        $friend = Friend::where('user_id', auth()->id())
-            ->where('friend_id', $friendId)
-            ->where('status', 'pending')
-            ->first();
-
-        if ($friend) {
-            $friend->delete();
-
-        }
-
-        return redirect()->back()->with('success', 'Friend request declined.');
     }
 
 }

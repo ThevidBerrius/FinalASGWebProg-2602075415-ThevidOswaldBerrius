@@ -22,5 +22,8 @@ return [
   'linkedin' => 'Nama Pengguna LinkedIn',
   'phone' => 'Nomor Handphone',
   'experience' => 'Tahun Pengalaman',
-  'registration_price' => 'Biaya Registrasi'
+  'registration_price' => 'Biaya Registrasi',
+  'users' => 'Pengguna',
+  'add_friend' => 'Tambah Teman',
+  'friend_request_sent' => 'Permintaan Pertemanan Dikirim!',
 ];
