@@ -3,6 +3,7 @@
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 // Route::get('/', function () {
@@ -23,6 +24,9 @@ Route::post('/send-friend-request/{friendId}', [HomeController::class, 'sendFrie
 
 Route::get('/notifications', [NotificationController::class, 'getNotifications'])->name('notifications.index');
 Route::post('/notifications/{id}/{action}', [NotificationController::class, 'handleNotification'])->name('notifications.handle');
+
+Route::get('/profile/{id}', [ProfileController::class, 'show'])->name('profile.show');
+Route::delete('/profile/remove-friend/{id}', [ProfileController::class, 'removeFriend'])->name('profile.removeFriend');
 
 Route::get('/lang/{locale}', function ($locale) {
     if (in_array($locale, ['en', 'id'])) {

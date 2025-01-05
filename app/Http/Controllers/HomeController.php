@@ -55,7 +55,7 @@ class HomeController extends Controller
             return $user;
         });
 
-        return view('home', [
+        return view('pages.home', [
             'usersWithFriendRequestStatus' => $usersWithFriendRequestStatus,
             'notifications' => $notifications
         ]);

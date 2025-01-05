@@ -3,7 +3,7 @@
 return [
   'home' => 'Beranda',
   'about' => 'Tentang',
-  'contact' => 'Kontak',
+  'friend' => 'Teman',
   'profile' => 'Profil',
   'notification' => 'Notifikasi',
   'search_friend' => 'Cari Teman',
@@ -26,4 +26,6 @@ return [
   'users' => 'Pengguna',
   'add_friend' => 'Tambah Teman',
   'friend_request_sent' => 'Permintaan Pertemanan Dikirim!',
+  'no_friends_yet' => 'Belum Ada Teman!',
+  'remove_friend' => 'Hapus Teman',
 ];

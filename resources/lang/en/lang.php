@@ -3,7 +3,7 @@
 return [
   'home' => 'Home',
   'about' => 'About',
-  'contact' => 'Contact',
+  'friend' => 'Friends',
   'profile' => 'Profile',
   'notification' => 'Notifications',
   'search_friend' => 'Search Friend',
@@ -26,4 +26,6 @@ return [
   'users' => 'Users',
   'add_friend' => 'Add Friend',
   'friend_request_sent' => 'Friend Request Sent!',
+  'no_friends_yet' => 'No Friends Yet!',
+  'remove_friend' => 'Remove Friend',
 ];

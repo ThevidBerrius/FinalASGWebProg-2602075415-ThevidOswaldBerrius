@@ -19,7 +19,7 @@
                     <a class="nav-link" href="#">@lang('lang.about')</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">@lang('lang.contact')</a>
+                    <a class="nav-link" href="#">@lang('lang.friend')</a>
                 </li>
             </ul>
 
@@ -104,7 +104,7 @@
                             <i class="bi bi-person-circle me-1"></i> {{ Auth::user()->name }}
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
-                            <li><a class="dropdown-item" href="#">@lang('lang.profile')</a></li>
+                            <li><a class="dropdown-item" href="{{ route('profile.show', Auth::user()->id) }}">@lang('lang.profile')</a></li>
                             <li>
                                 <a class="dropdown-item" href="{{ route('logout') }}"
                                     onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
