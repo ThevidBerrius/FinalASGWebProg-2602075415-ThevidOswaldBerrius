@@ -51,43 +51,52 @@
                         @endif
                     </li>
                 @else
+                
                     <!-- Notification Dropdown -->
-                    <li class="nav-item dropdown ms-4">
-                        <a class="nav-link dropdown-toggle position-relative d-flex align-items-center" href="#"
-                            id="notificationDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="bi bi-bell me-1"></i> @lang('lang.notification')
-                            <!-- Mock Notification Count -->
-                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                                3
-                                <span class="visually-hidden">unread notifications</span>
-                            </span>
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="notificationDropdown">
-                            <li class="dropdown-header">@lang('lang.notification')</li>
-                            <li>
-                                <a class="dropdown-item" href="#">
-                                    <small>2 hours ago</small><br>
-                                    Notification message 1
-                                </a>
-                            </li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="#">
-                                    <small>5 hours ago</small><br>
-                                    Notification message 2
-                                </a>
-                            </li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <li>
-                                <a class="dropdown-item text-center" href="#">@lang('lang.view_all')</a>
-                            </li>
-                        </ul>
-                    </li>
-                    
+                    @auth
+                        <li class="nav-item dropdown ms-4">
+                            <a class="nav-link dropdown-toggle position-relative d-flex align-items-center" href="#"
+                                id="notificationDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="bi bi-bell me-1"></i> @lang('lang.notification')
+                                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                    {{ $notifications->count() }}
+                                    <span class="visually-hidden">unread notifications</span>
+                                </span>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="notificationDropdown">
+                                <li class="dropdown-header">@lang('lang.notification')</li>
+                                @foreach ($notifications as $notification)
+                                    <li>
+                                        <a class="dropdown-item" href="#">
+                                            <small>{{ $notification->created_at->diffForHumans() }}</small><br>
+                                            {{ $notification->content }}
+                                        </a>
+                                        <div class="d-flex justify-content-end mt-2">
+                                            <form
+                                                action="{{ route('notifications.handle', ['id' => $notification->id, 'action' => 'accept']) }}"
+                                                method="POST">
+                                                @csrf
+                                                <button class="btn btn-success btn-sm me-2">Accept</button>
+                                            </form>
+                                            <form
+                                                action="{{ route('notifications.handle', ['id' => $notification->id, 'action' => 'decline']) }}"
+                                                method="POST">
+                                                @csrf
+                                                <button class="btn btn-danger btn-sm">Decline</button>
+                                            </form>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <hr class="dropdown-divider">
+                                    </li>
+                                @endforeach
+                                <li><a class="dropdown-item text-center" href="#">@lang('lang.view_all')</a></li>
+                            </ul>
+                        </li>
+                    @endauth
+
+
+
                     <!-- Profile Dropdown for Authenticated User -->
                     <li class="nav-item dropdown ms-4">
                         <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="profileDropdown"

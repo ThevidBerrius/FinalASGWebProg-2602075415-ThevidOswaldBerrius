@@ -1,23 +1,28 @@
 @extends('layouts.master')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Dashboard') }}</div>
-
+    <div class="container">
+        <h2>Users</h2>
+        @if (session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
+        @foreach ($users as $user)
+            <div class="card mb-3">
                 <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-
-                    {{ __('You are logged in!') }}
+                    <h5>{{ $user->name }}</h5>
+                    <p>@lang('lang.gender'): {{ $user->gender }}</p>
+                    <p>@lang('lang.occupation'): {{ $user->occupation->name }}</p>
+                    <p>@lang('lang.experience'): {{ $user->experience_years }} years</p>
+                    <p>@lang('lang.linkedin'): {{ $user->linkedin_username }}</p>
+                    <p>@lang('lang.phone'): {{ $user->phone_number }}</p>
+                    <form action="{{ route('sendFriendRequest', $user->id) }}" method="POST">
+                        @csrf
+                        <button type="submit" class="btn btn-primary">👍 Add Friend</button>
+                    </form>
                 </div>
             </div>
-        </div>
+        @endforeach
     </div>
-</div>
 @endsection
