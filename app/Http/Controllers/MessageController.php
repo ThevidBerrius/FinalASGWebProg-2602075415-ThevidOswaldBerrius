@@ -9,26 +9,35 @@ class MessageController extends Controller
 {
     //
 
-    public function index()
+    // In MessageController
+    public function showMessages($friendId)
     {
-        $messages = Message::where('receiver_id', auth()->id())->with('sender')->get();
+        $currentUserId = auth()->id();
 
-        return view('pages.messages', compact('messages'));
+        // Fetch messages between the current user and the selected friend
+        $messages = Message::where(function ($query) use ($currentUserId, $friendId) {
+            $query->where('sender_id', $currentUserId)
+                ->where('receiver_id', $friendId);
+        })
+            ->orWhere(function ($query) use ($currentUserId, $friendId) {
+                $query->where('sender_id', $friendId)
+                    ->where('receiver_id', $currentUserId);
+            })
+            ->orderBy('created_at', 'asc')
+            ->get();
+
+        return view('pages.messages', ['messages' => $messages, 'friendId' => $friendId]);
     }
 
-    public function sendMessage(Request $request)
+    public function sendMessage(Request $request, $friendId)
     {
-        $request->validate([
-            'receiver_id' => 'required|exists:users,id',
-            'message' => 'required|string',
-        ]);
+        $message = new Message();
+        $message->sender_id = auth()->id();
+        $message->receiver_id = $friendId;
+        $message->content = $request->input('content');
+        $message->save();
 
-        Message::create([
-            'sender_id' => auth()->id(),
-            'receiver_id' => $request->receiver_id,
-            'message' => $request->message,
-        ]);
-
-        return redirect()->back()->with('success', 'Message sent successfully!');
+        return redirect()->route('messages.show', ['friend_id' => $friendId]);
     }
+
 }

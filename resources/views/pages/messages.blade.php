@@ -2,15 +2,21 @@
 
 @section('content')
     <div class="container">
-        <h2>@lang('lang.inbox')</h2>
-        <ul class="list-group">
-            @foreach ($messages as $message)
-                <li class="list-group-item">
-                    <div>
-                        <strong>{{ $message->sender->name }}</strong>: {{ $message->message }}
-                    </div>
-                </li>
+        <h1>Messages</h1>
+        <div class="messages">
+            @foreach($messages as $message)
+                <div class="message">
+                    <strong>{{ $message->sender->name }}:</strong> {{ $message->content }}
+                </div>
             @endforeach
-        </ul>
+        </div>
+        <form method="POST" action="{{ route('messages.send', ['friend_id' => $friendId]) }}">
+            @csrf
+            <div class="form-group">
+                <label for="content">Message</label>
+                <textarea id="content" name="content" class="form-control" rows="3"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Send</button>
+        </form>
     </div>
 @endsection

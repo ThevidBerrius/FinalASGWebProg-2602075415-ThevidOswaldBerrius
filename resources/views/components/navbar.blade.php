@@ -19,7 +19,7 @@
                     <a class="nav-link" href="#">@lang('lang.about')</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">@lang('lang.friend')</a>
+                    <a class="nav-link" href="{{ route('friends.index') }}">@lang('lang.friend')</a>
                 </li>
             </ul>
 
