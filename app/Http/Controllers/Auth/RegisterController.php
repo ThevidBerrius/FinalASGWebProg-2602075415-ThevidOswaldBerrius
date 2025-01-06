@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Avatar;
+use App\Models\AvatarTransaction;
 use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
@@ -73,7 +75,7 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
@@ -83,12 +85,25 @@ class RegisterController extends Controller
             'phone_number' => $data['phone_number'],
             'experience_years' => $data['experience_years'],
         ]);
+
+        $freeAvatar = Avatar::where('price', 0)->inRandomOrder()->first();
+
+        if ($freeAvatar) {
+            AvatarTransaction::create([
+                'user_id' => $user->id,
+                'avatar_id' => $freeAvatar->id,
+                'price' => 0,
+            ]);
+            $user->avatar_id = $freeAvatar->id;
+            $user->save();
+        }
+
+        return $user;
     }
 
     protected function registered(Request $request, $user)
     {
         $price = rand(100000, 125000);
-
         session(['registration_fee' => $price]);
 
         return redirect()->route('auth.payment');

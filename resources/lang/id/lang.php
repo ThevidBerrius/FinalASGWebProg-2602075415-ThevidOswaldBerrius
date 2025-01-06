@@ -28,4 +28,11 @@ return [
   'friend_request_sent' => 'Permintaan Pertemanan Dikirim!',
   'no_friends_yet' => 'Belum Ada Teman!',
   'remove_friend' => 'Hapus Teman',
+  'years' => 'Tahun',
+  'select_avatar' => 'Pilih Avatar',
+  'price' => 'Harga',
+  'buy_avatar' => 'Beli Avatar',
+  'coins' => 'Koin',
+  'your_coins' => 'Koin Kamu',
+  'visit_avatar_shop' => 'Kunjungi Toko Avatar',
 ];

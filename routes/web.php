@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AvatarController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\PaymentController;
@@ -27,6 +28,11 @@ Route::post('/notifications/{id}/{action}', [NotificationController::class, 'han
 
 Route::get('/profile/{id}', [ProfileController::class, 'show'])->name('profile.show');
 Route::delete('/profile/remove-friend/{id}', [ProfileController::class, 'removeFriend'])->name('profile.removeFriend');
+Route::post('/profile/update-avatar', [ProfileController::class, 'updateAvatar'])->name('profile.updateAvatar');
+
+
+Route::get('/avatars', [AvatarController::class, 'index'])->name('avatars.index');
+Route::post('/avatars/select', [AvatarController::class, 'select'])->name('avatars.select');
 
 Route::get('/lang/{locale}', function ($locale) {
     if (in_array($locale, ['en', 'id'])) {

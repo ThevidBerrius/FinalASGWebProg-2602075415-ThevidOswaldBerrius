@@ -36,6 +36,25 @@ class User extends Authenticatable
         return $this->hasMany(Notification::class);
     }
 
+    public function avatarTransactions()
+    {
+        return $this->hasMany(AvatarTransaction::class);
+    }
+
+    public function avatars()
+    {
+        return $this->belongsToMany(Avatar::class, 'avatar_transactions')->withTimestamps();
+    }
+
+    public function avatar()
+    {
+        return $this->belongsTo(Avatar::class)->withDefault([
+            'image_data' => asset('default-avatar.png')
+        ]);
+    }
+
+
+
     /**
      * The attributes that are mass assignable.
      *

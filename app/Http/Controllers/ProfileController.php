@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Avatar;
 use App\Models\Friend;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -9,15 +10,28 @@ use Illuminate\Http\Request;
 class ProfileController extends Controller
 {
     //
-    public function show($id)
+    public function show()
     {
-        $user = User::findOrFail($id);
+        $user = auth()->user();
+        $friends = $user->friends;
+        $purchasedAvatars = $user->avatarTransactions()->with('avatar')->get()->pluck('avatar');
 
-        $friends = User::whereHas('friend', function ($query) use ($user) {
-            $query->where('user_id', $user->id)->orWhere('friend_id', $user->id);
-        })->get();
+        return view('pages.profile', compact('user', 'friends', 'purchasedAvatars'));
+    }
 
-        return view('pages.profile', compact('user', 'friends'));
+    public function updateAvatar(Request $request)
+    {
+        $user = auth()->user();
+        $avatar = Avatar::find($request->avatar_id);
+
+        if ($avatar && $user->avatarTransactions()->where('avatar_id', $avatar->id)->exists()) {
+            $user->avatar_id = $avatar->id;
+            $user->save();
+
+            return redirect()->back()->with('success', __('Avatar updated successfully!'));
+        }
+
+        return redirect()->back()->with('error', __('Invalid avatar selection.'));
     }
 
     public function removeFriend($friendId)

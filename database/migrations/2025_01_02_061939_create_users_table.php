@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('phone_number');
             $table->integer('experience_years');
             $table->integer('coins')->default(100);
+            $table->foreignId('avatar_id')->nullable()->constrained('avatars')->onDelete('set null');
             $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();
             $table->timestamps();

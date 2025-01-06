@@ -28,4 +28,11 @@ return [
   'friend_request_sent' => 'Friend Request Sent!',
   'no_friends_yet' => 'No Friends Yet!',
   'remove_friend' => 'Remove Friend',
+  'years' => 'Years',
+  'select_avatar' => 'Select Avatar',
+  'price' => 'Price',
+  'buy_avatar' => 'Buy Avatar',
+  'coins' => 'Coins',
+  'your_coins' => 'Your Coins',
+  'visit_avatar_shop' => 'Visit Avatar Shop',
 ];
