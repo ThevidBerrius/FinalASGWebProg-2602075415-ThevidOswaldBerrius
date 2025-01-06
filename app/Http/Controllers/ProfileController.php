@@ -12,16 +12,13 @@ class ProfileController extends Controller
     //
     public function show()
     {
-        $user = auth()->user()->load('occupation');
-        $friends = $user->friends()->with('friend.occupation')->get();
-
-        // Jika teman bisa juga berteman balik
-        $friends = $friends->merge($user->friendOf()->with('user.occupation')->get());
-
+        $user = auth()->user()->load('occupation');  
+        $friends = $user->friend()->with('avatar', 'occupation')->get();
         $purchasedAvatars = $user->avatarTransactions()->with('avatar')->get()->pluck('avatar');
 
         return view('pages.profile', compact('user', 'friends', 'purchasedAvatars'));
     }
+
 
     public function updateAvatar(Request $request)
     {

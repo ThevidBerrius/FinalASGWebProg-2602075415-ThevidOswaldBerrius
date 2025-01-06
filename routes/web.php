@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AvatarController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\MessageController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProfileController;
@@ -32,7 +33,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/profile/update-avatar', [ProfileController::class, 'updateAvatar'])->name('profile.updateAvatar');
 });
 
-
+Route::get('/messages', [MessageController::class, 'index'])->name('messages.index');
 
 Route::get('/avatars', [AvatarController::class, 'index'])->name('avatars.index');
 Route::post('/avatars/select', [AvatarController::class, 'select'])->name('avatars.select');
