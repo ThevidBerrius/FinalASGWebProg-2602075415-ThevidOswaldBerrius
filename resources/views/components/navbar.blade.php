@@ -13,7 +13,7 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">@lang('lang.home')</a>
+                    <a class="nav-link active" aria-current="page" href="{{ route('home') }}">@lang('lang.home')</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">@lang('lang.about')</a>

@@ -12,8 +12,12 @@ class ProfileController extends Controller
     //
     public function show()
     {
-        $user = auth()->user();
-        $friends = $user->friends;
+        $user = auth()->user()->load('occupation');
+        $friends = $user->friends()->with('friend.occupation')->get();
+
+        // Jika teman bisa juga berteman balik
+        $friends = $friends->merge($user->friendOf()->with('user.occupation')->get());
+
         $purchasedAvatars = $user->avatarTransactions()->with('avatar')->get()->pluck('avatar');
 
         return view('pages.profile', compact('user', 'friends', 'purchasedAvatars'));
@@ -40,10 +44,10 @@ class ProfileController extends Controller
 
         Friend::where(function ($query) use ($currentUserId, $friendId) {
             $query->where('user_id', $currentUserId)
-                  ->where('friend_id', $friendId);
+                ->where('friend_id', $friendId);
         })->orWhere(function ($query) use ($currentUserId, $friendId) {
             $query->where('friend_id', $currentUserId)
-                  ->where('user_id', $friendId);
+                ->where('user_id', $friendId);
         })->delete();
 
         return redirect()->back()->with('success', 'Friend Removed');

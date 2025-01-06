@@ -8,6 +8,8 @@
             <h2>{{ $user->name }}</h2>
             <p>@lang('lang.occupation'): {{ $user->occupation->name }}</p>
             <p>@lang('lang.experience'): {{ $user->experience_years }} @lang('lang.years')</p>
+            <p>@lang('lang.email'): {{ $user->email }}</p>
+            <p>@lang('lang.phone'): {{ $user->phone }}</p>
         </div>
 
         <div class="text-center mt-4">
@@ -15,7 +17,7 @@
         </div>
 
         <div class="avatar-inventory mt-5">
-            <h3>@lang('lang.avatar_inventory')</h3>
+            <h3>@lang('lang.select_avatar')</h3>
             <div class="row">
                 @foreach ($purchasedAvatars as $avatar)
                     <div class="col-md-4">
@@ -36,27 +38,29 @@
 
         <div class="friend-list mt-5">
             <h3>@lang('lang.friend')</h3>
-            @if ($friends->isEmpty())
+            @if ($friends && $friends->isEmpty())
                 <p>@lang('lang.no_friends_yet')</p>
             @else
                 <ul class="list-group">
                     @foreach ($friends as $friend)
                         <li class="list-group-item d-flex justify-content-between align-items-center">
                             <div class="d-flex align-items-center">
-                                <img src="{{ $friend->avatar ? $friend->avatar->image_data : 'default-avatar.png' }}"
+                                <img src="{{ $friend->friend->avatar ? $friend->friend->avatar->image_data : 'default-avatar.png' }}"
                                     alt="Avatar" class="rounded-circle me-3" width="50">
                                 <div>
-                                    <h5>{{ $friend->name }}</h5>
-                                    <p>@lang('lang.occupation'): {{ $friend->occupation->name }}</p>
+                                    <h5>{{ $friend->friend->name }}</h5>
+                                    <p>@lang('lang.occupation'): {{ $friend->friend->occupation->name ?? __('No occupation') }}
+                                    </p>
                                 </div>
                             </div>
-                            <form action="{{ route('profile.removeFriend', $friend->id) }}" method="POST">
+                            <form action="{{ route('profile.removeFriend', $friend->friend_id) }}" method="POST">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-danger">@lang('lang.remove_friend')</button>
                             </form>
                         </li>
                     @endforeach
+
                 </ul>
             @endif
         </div>
