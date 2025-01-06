@@ -12,12 +12,31 @@ class ProfileController extends Controller
     //
     public function show()
     {
-        $user = auth()->user()->load('occupation');  
-        $friends = $user->friend()->with('avatar', 'occupation')->get();
+        $user = auth()->user()->load('occupation', 'avatar');
+
+        $friends = Friend::where(function ($query) use ($user) {
+            $query->where('user_id', $user->id)
+                ->orWhere('friend_id', $user->id);
+        })
+            ->where('status', 'accepted')
+            ->with([
+                'friend' => function ($query) use ($user) {
+                    $query->where('id', '!=', $user->id);
+                },
+                'friend.avatar',
+                'friend.occupation'
+            ])
+            ->get()
+            ->map(function ($friend) use ($user) {
+                return $friend->user_id == $user->id ? $friend->friend : $friend->user;
+            });
+
         $purchasedAvatars = $user->avatarTransactions()->with('avatar')->get()->pluck('avatar');
 
         return view('pages.profile', compact('user', 'friends', 'purchasedAvatars'));
     }
+
+
 
 
     public function updateAvatar(Request $request)

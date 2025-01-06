@@ -29,15 +29,17 @@ class HomeController extends Controller
         $currentUserId = auth()->id();
 
         $users = User::where('id', '!=', $currentUserId)
-            ->whereDoesntHave('friend', function ($query) use ($currentUserId) {
-                $query->where('friend_id', $currentUserId)
-                    ->whereIn('status', ['accepted', 'pending', 'declined']);
-            })
-            ->whereDoesntHave('friend', function ($query) use ($currentUserId) {
-                $query->where('user_id', $currentUserId)
-                    ->whereIn('status', ['accepted', 'pending', 'declined']);
-            })
-            ->get();
+        ->whereDoesntHave('friendsAsUser', function ($query) use ($currentUserId) {
+            $query->where('friend_id', $currentUserId)
+                  ->where('status', 'accepted')
+                  ->orWhere('status', 'pending');
+        })
+        ->whereDoesntHave('friendOf', function ($query) use ($currentUserId) {
+            $query->where('user_id', $currentUserId)
+                  ->where('status', 'accepted')
+                  ->orWhere('status', 'pending');
+        })
+        ->get();
 
         $notifications = Notification::where('user_id', $currentUserId)->get();
 
@@ -61,6 +63,8 @@ class HomeController extends Controller
         ]);
     }
 
+
+
     public function sendFriendRequest($friendId)
     {
         $friend = new Friend();
@@ -71,8 +75,8 @@ class HomeController extends Controller
         $friend->save();
 
         $notification = new Notification();
-        $notification->user_id = $friendId; 
-        $notification->sender_id = auth()->id(); 
+        $notification->user_id = $friendId;
+        $notification->sender_id = auth()->id();
         $notification->content = 'You have a new friend request.';
         $notification->type = 'request';
         $notification->save();

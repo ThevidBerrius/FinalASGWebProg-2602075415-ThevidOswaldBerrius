@@ -45,12 +45,12 @@
                     @foreach ($friends as $friend)
                         <li class="list-group-item d-flex justify-content-between align-items-center">
                             <div class="d-flex align-items-center">
-                                <!-- Display friend's avatar -->
-                                <img src="{{ $friend->avatar ? $friend->avatar->image_data : 'default-avatar.png' }}"
+                                <img src="{{ optional($friend->avatar)->image_data ?: 'default-avatar.png' }}"
                                     alt="Avatar" class="rounded-circle me-3" width="50">
                                 <div>
                                     <h5>{{ $friend->name }}</h5>
-                                    <p>@lang('lang.occupation'): {{ $friend->occupation->name ?? __('No occupation') }}</p>
+                                    <p>@lang('lang.occupation'): {{ optional($friend->occupation)->name ?? __('No occupation') }}
+                                    </p>
                                 </div>
                             </div>
                             <form action="{{ route('profile.removeFriend', $friend->id) }}" method="POST">
