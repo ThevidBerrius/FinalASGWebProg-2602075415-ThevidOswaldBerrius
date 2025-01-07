@@ -35,8 +35,9 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::get('/friends', [FriendController::class, 'friends'])->name('friends.index');
-Route::get('/messages/{friend_id}', [MessageController::class, 'showMessages'])->name('messages.show');
-Route::post('/messages/{friend_id}', [MessageController::class, 'sendMessage'])->name('messages.send');
+
+Route::get('/messages/{friendId}', [MessageController::class, 'showMessages'])->name('messages.show');
+Route::post('/messages/send/{friend_id}', [MessageController::class, 'sendMessage'])->name('messages.send');
 
 Route::get('/avatars', [AvatarController::class, 'index'])->name('avatars.index');
 Route::post('/avatars/select', [AvatarController::class, 'select'])->name('avatars.select');

@@ -11,7 +11,7 @@
                         <div class="card-body">
                             <h5 class="card-title">{{ $friend->name }}</h5>
                             <p class="card-text">{{ $friend->occupation->name }}</p>
-                            <a href="{{ route('messages.show', ['friend_id' => $friend->id]) }}" class="btn btn-primary">Message</a>
+                            <a href="{{ route('messages.show', ['friendId' => $friend->id]) }}" class="btn btn-primary">Chat</a>
                         </div>
                     </div>
                 </div>
