@@ -35,4 +35,5 @@ return [
   'coins' => 'Coins',
   'your_coins' => 'Your Coins',
   'visit_avatar_shop' => 'Visit Avatar Shop',
+  'no_notifications' => 'No Notifications',
 ];

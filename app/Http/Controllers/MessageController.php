@@ -32,17 +32,21 @@ class MessageController extends Controller
 
     public function sendMessage(Request $request, $friendId)
     {
-        $request->validate([
-            'content' => 'required|string|max:255',
-        ]);
+        $userId = auth()->id();
 
         $message = new Message();
-        $message->sender_id = auth()->id();
+        $message->sender_id = $userId;
         $message->receiver_id = $friendId;
         $message->content = $request->input('content');
         $message->save();
 
-        return redirect()->route('messages.show', ['friendId' => $friendId])->with('success', 'Message sent successfully!');
-    }
+        $notification = new Notification();
+        $notification->user_id = $friendId;
+        $notification->sender_id = $userId;
+        $notification->content = 'You have a new message from ' . auth()->user()->name;
+        $notification->type = 'message';
+        $notification->save();
 
+        return redirect()->route('messages.show', ['friendId' => $friendId])->with('success', 'Message sent!');
+    }
 }

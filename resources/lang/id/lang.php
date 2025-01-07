@@ -35,4 +35,5 @@ return [
   'coins' => 'Koin',
   'your_coins' => 'Koin Kamu',
   'visit_avatar_shop' => 'Kunjungi Toko Avatar',
+  'no_notifications' => 'Tidak Ada Notifikasi',
 ];
