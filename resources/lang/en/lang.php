@@ -50,4 +50,5 @@ return [
   'overpaid_message' => 'Sorry, you overpaid by Rp:amount.',
   'enter_wallet_balance' => 'Enter to wallet balance',
   'reenter_payment_amount' => 'Re-enter payment amount',
+  'field_of_work' => 'Field of Work',
 ];

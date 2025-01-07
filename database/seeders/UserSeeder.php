@@ -23,6 +23,7 @@ class UserSeeder extends Seeder
             'linkedin_username' => 'https://www.linkedin.com/in/john-doe',
             'phone_number' => '081112223344',
             'experience_years' => 7,
+            'avatar_id' => rand(1, 3),  
         ]);
 
         User::create([
@@ -34,6 +35,7 @@ class UserSeeder extends Seeder
             'linkedin_username' => 'https://www.linkedin.com/in/jane-smith',
             'phone_number' => '081223344556',
             'experience_years' => 5,
+            'avatar_id' => rand(1, 3),  
         ]);
 
         User::create([
@@ -45,6 +47,7 @@ class UserSeeder extends Seeder
             'linkedin_username' => 'https://www.linkedin.com/in/alice-brown',
             'phone_number' => '081334455667',
             'experience_years' => 3,
+            'avatar_id' => rand(1, 3),  
         ]);
 
         User::create([
@@ -56,6 +59,7 @@ class UserSeeder extends Seeder
             'linkedin_username' => 'https://www.linkedin.com/in/bob-williams',
             'phone_number' => '081445566778',
             'experience_years' => 10,
+            'avatar_id' => rand(1, 3),  
         ]);
 
         User::create([
@@ -67,6 +71,7 @@ class UserSeeder extends Seeder
             'linkedin_username' => 'https://www.linkedin.com/in/charlie-johnson',
             'phone_number' => '081556677889',
             'experience_years' => 8,
+            'avatar_id' => rand(1, 3),  
         ]);
 
         User::create([
@@ -78,6 +83,7 @@ class UserSeeder extends Seeder
             'linkedin_username' => 'https://www.linkedin.com/in/diana-rose',
             'phone_number' => '081667788990',
             'experience_years' => 6,
+            'avatar_id' => rand(1, 3),  
         ]);
 
         User::create([
@@ -89,6 +95,7 @@ class UserSeeder extends Seeder
             'linkedin_username' => 'https://www.linkedin.com/in/eve-green',
             'phone_number' => '081778899001',
             'experience_years' => 4,
+            'avatar_id' => rand(1, 3),  
         ]);
     }
 }

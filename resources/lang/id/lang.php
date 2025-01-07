@@ -49,4 +49,5 @@ return [
   'overpaid_message' => 'Maaf, anda membayar lebih Rp:amount.',
   'enter_wallet_balance' => 'Masukkan Ke Saldo',
   'reenter_payment_amount' => 'Bayar Ulang',
+  'field_of_work' => 'Bidang Pekerjaan',
 ];
