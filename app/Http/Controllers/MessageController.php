@@ -28,8 +28,6 @@ class MessageController extends Controller
         return view('pages.messages', compact('messages', 'friend'));
     }
 
-
-
     public function sendMessage(Request $request, $friendId)
     {
         $userId = auth()->id();
@@ -48,5 +46,22 @@ class MessageController extends Controller
         $notification->save();
 
         return redirect()->route('messages.show', ['friendId' => $friendId])->with('success', 'Message sent!');
+    }
+
+    public function showAndDeleteNotification($friendId, $notificationId)
+    {
+        Notification::findOrFail($notificationId)->delete();
+
+        $messages = Message::where(function ($query) use ($friendId) {
+            $query->where('sender_id', auth()->id())
+                ->where('receiver_id', $friendId);
+        })->orWhere(function ($query) use ($friendId) {
+            $query->where('sender_id', $friendId)
+                ->where('receiver_id', auth()->id());
+        })->get();
+
+        $friend = User::findOrFail($friendId);
+
+        return view('pages.messages', compact('messages', 'friend'));
     }
 }

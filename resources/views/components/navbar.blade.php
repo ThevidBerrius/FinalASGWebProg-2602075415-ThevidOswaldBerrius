@@ -51,7 +51,6 @@
                         @endif
                     </li>
                 @else
-                
                     <!-- Notification Dropdown -->
                     @auth
                         <li class="nav-item dropdown ms-4">
@@ -72,18 +71,25 @@
                                             {{ $notification->content }}
                                         </a>
                                         <div class="d-flex justify-content-end mt-2">
-                                            <form
-                                                action="{{ route('notifications.handle', ['id' => $notification->id, 'action' => 'accept']) }}"
-                                                method="POST">
-                                                @csrf
-                                                <button class="btn btn-success btn-sm me-2">Accept</button>
-                                            </form>
-                                            <form
-                                                action="{{ route('notifications.handle', ['id' => $notification->id, 'action' => 'decline']) }}"
-                                                method="POST">
-                                                @csrf
-                                                <button class="btn btn-danger btn-sm">Decline</button>
-                                            </form>
+                                            @if ($notification->type === 'request')
+                                                <form
+                                                    action="{{ route('notifications.handle', ['id' => $notification->id, 'action' => 'accept']) }}"
+                                                    method="POST">
+                                                    @csrf
+                                                    <button class="btn btn-success btn-sm me-2">@lang('lang.accept')</button>
+                                                </form>
+                                                <form
+                                                    action="{{ route('notifications.handle', ['id' => $notification->id, 'action' => 'decline']) }}"
+                                                    method="POST">
+                                                    @csrf
+                                                    <button class="btn btn-danger btn-sm">@lang('lang.decline')</button>
+                                                </form>
+                                            @elseif ($notification->type === 'message')
+                                                <a href="{{ route('messages.show.notification', ['friendId' => $notification->sender_id, 'notificationId' => $notification->id]) }}"
+                                                    class="btn btn-primary btn-sm">
+                                                    @lang('lang.go_to_chat')
+                                                </a>
+                                            @endif
                                         </div>
                                     </li>
                                     <li>
@@ -95,8 +101,6 @@
                         </li>
                     @endauth
 
-
-
                     <!-- Profile Dropdown for Authenticated User -->
                     <li class="nav-item dropdown ms-4">
                         <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="profileDropdown"
@@ -104,7 +108,8 @@
                             <i class="bi bi-person-circle me-1"></i> {{ Auth::user()->name }}
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
-                            <li><a class="dropdown-item" href="{{ route('profile.show', Auth::user()->id) }}">@lang('lang.profile')</a></li>
+                            <li><a class="dropdown-item"
+                                    href="{{ route('profile.show', Auth::user()->id) }}">@lang('lang.profile')</a></li>
                             <li>
                                 <a class="dropdown-item" href="{{ route('logout') }}"
                                     onclick="event.preventDefault(); document.getElementById('logout-form').submit();">

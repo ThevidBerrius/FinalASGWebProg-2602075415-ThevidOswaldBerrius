@@ -27,6 +27,8 @@ Route::post('/send-friend-request/{friendId}', [HomeController::class, 'sendFrie
 
 Route::get('/notifications', [NotificationController::class, 'getNotifications'])->name('notifications.index');
 Route::post('/notifications/{id}/{action}', [NotificationController::class, 'handleNotification'])->name('notifications.handle');
+Route::get('/messages/{friendId}/notification/{notificationId}', [MessageController::class, 'showAndDeleteNotification'])->name('messages.show.notification');
+
 
 
 Route::middleware('auth')->group(function () {
