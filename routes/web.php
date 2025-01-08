@@ -21,6 +21,8 @@ Route::get('/about', [HomeController::class, 'about'])->name('about');
 
 Route::get('/payment', [PaymentController::class, 'show'])->name('auth.payment');
 Route::post('/payment', [PaymentController::class, 'processPayment'])->name('auth.payment.process');
+Route::post('/top-up', [PaymentController::class, 'topUp'])->name('topUp');
+
 
 Route::get('/', [HomeController::class, 'index'])->middleware('auth')->name('home');
 
