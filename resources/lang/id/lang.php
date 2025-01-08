@@ -73,4 +73,12 @@ return [
   "friend_removed" => "Teman dihapus.",
   'action_performed' => 'Berhasil.',
   'type_your_message' => 'Ketik pesan...',
+  'about_us' => 'Tentang Kami',
+  'welcome_message' => 'Selamat datang di platform kami! Berikut sedikit tentang kami.',
+  'our_mission' => 'Misi Kami',
+  'mission_description' => 'Misi kami adalah menghubungkan profesional dari berbagai bidang, mendorong pembelajaran, dan membantu individu berkembang dalam karir mereka.',
+  'what_we_do' => 'Apa yang Kami Lakukan',
+  'what_we_do_description' => 'Kami menyediakan platform bagi pengguna untuk terhubung, belajar dari satu sama lain, dan berkolaborasi dalam proyek profesional. Baik Anda mencari peluang baru atau hanya ingin memperluas jaringan, kami siap membantu!',
+  'contact_us' => 'Hubungi Kami',
+  'contact_message' => 'Jika Anda memiliki pertanyaan atau ingin menghubungi kami, silakan hubungi tim dukungan kami!',
 ];

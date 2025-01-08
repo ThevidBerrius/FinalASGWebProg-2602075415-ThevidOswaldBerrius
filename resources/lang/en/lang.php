@@ -74,4 +74,12 @@ return [
   "friend_removed" => "Friend removed.",
   'action_performed' => 'Action performed.',
   'type_your_message' => 'Type your message...',
+  'about_us' => 'About Us',
+  'welcome_message' => 'Welcome to our platform! Here\'s a little bit about us.',
+  'our_mission' => 'Our Mission',
+  'mission_description' => 'Our mission is to connect professionals from various fields, foster learning, and help individuals grow in their careers.',
+  'what_we_do' => 'What We Do',
+  'what_we_do_description' => 'We provide a platform for users to connect, learn from one another, and collaborate on professional projects. Whether you\'re looking for new opportunities or simply seeking to expand your network, we\'re here to help!',
+  'contact_us' => 'Contact Us',
+  'contact_message' => 'If you have any questions or would like to get in touch with us, feel free to contact our support team!',
 ];

@@ -95,4 +95,8 @@ class HomeController extends Controller
         return redirect()->route('home')->with('success', __('lang.friend_request_sent'));
     }
 
+    public function about()
+    {
+        return view('pages.about');
+    }
 }
