@@ -73,4 +73,5 @@ return [
   "avatar_updated_successfully" => "Avatar updated successfully!",
   "friend_removed" => "Friend removed.",
   'action_performed' => 'Action performed.',
+  'type_your_message' => 'Type your message...',
 ];

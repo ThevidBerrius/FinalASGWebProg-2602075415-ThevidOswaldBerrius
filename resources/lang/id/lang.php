@@ -72,4 +72,5 @@ return [
   "avatar_updated_successfully" => "Avatar berhasil diperbarui!",
   "friend_removed" => "Teman dihapus.",
   'action_performed' => 'Berhasil.',
+  'type_your_message' => 'Ketik pesan...',
 ];
