@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Friend;
 use App\Models\Notification;
+use App\Models\Occupation;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -24,22 +25,31 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
+    public function index(Request $request)
     {
         $currentUserId = auth()->id();
 
-        $users = User::where('id', '!=', $currentUserId)
-        ->whereDoesntHave('friendsAsUser', function ($query) use ($currentUserId) {
-            $query->where('friend_id', $currentUserId)
-                  ->where('status', 'accepted')
-                  ->orWhere('status', 'pending');
-        })
-        ->whereDoesntHave('friendOf', function ($query) use ($currentUserId) {
-            $query->where('user_id', $currentUserId)
-                  ->where('status', 'accepted')
-                  ->orWhere('status', 'pending');
-        })
-        ->get();
+        $query = User::where('id', '!=', $currentUserId)
+            ->whereDoesntHave('friendsAsUser', function ($query) use ($currentUserId) {
+                $query->where('friend_id', $currentUserId)
+                    ->where('status', 'accepted')
+                    ->orWhere('status', 'pending');
+            })
+            ->whereDoesntHave('friendOf', function ($query) use ($currentUserId) {
+                $query->where('user_id', $currentUserId)
+                    ->where('status', 'accepted')
+                    ->orWhere('status', 'pending');
+            });
+
+        if ($request->filled('gender')) {
+            $query->where('gender', $request->input('gender'));
+        }
+
+        if ($request->filled('occupation')) {
+            $query->where('occupation_id', $request->input('occupation'));
+        }
+
+        $users = $query->get();
 
         $notifications = Notification::where('user_id', $currentUserId)->get();
 
@@ -57,13 +67,14 @@ class HomeController extends Controller
             return $user;
         });
 
+        $occupations = Occupation::all();
+
         return view('pages.home', [
             'usersWithFriendRequestStatus' => $usersWithFriendRequestStatus,
-            'notifications' => $notifications
+            'notifications' => $notifications,
+            'occupations' => $occupations
         ]);
     }
-
-
 
     public function sendFriendRequest($friendId)
     {
@@ -77,11 +88,11 @@ class HomeController extends Controller
         $notification = new Notification();
         $notification->user_id = $friendId;
         $notification->sender_id = auth()->id();
-        $notification->content = 'You have a new friend request.';
+        $notification->content = __('lang.new_friend_request');
         $notification->type = 'request';
         $notification->save();
 
-        return redirect()->route('home')->with('success', 'Friend request sent successfully.');
+        return redirect()->route('home')->with('success', __('lang.friend_request_sent'));
     }
 
 }

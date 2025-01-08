@@ -81,7 +81,7 @@
                         </div>
 
                         <div class="row mb-3">
-                            <label for="fields_of_work" class="col-md-4 col-form-label text-md-end">@lang('lang.fields_of_work')</label>
+                            <label for="fields_of_work" class="col-md-4 col-form-label text-md-end">@lang('lang.field_of_work')</label>
                             <div class="col-md-6">
                                 <select id="fields_of_work" name="fields_of_work[]" class="form-control @error('fields_of_work') is-invalid @enderror" multiple required size="5">
                                     @foreach($fieldsOfWork as $field)

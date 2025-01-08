@@ -45,7 +45,7 @@ class MessageController extends Controller
         $notification->type = 'message';
         $notification->save();
 
-        return redirect()->route('messages.show', ['friendId' => $friendId])->with('success', 'Message sent!');
+        return redirect()->route('messages.show', ['friendId' => $friendId])->with('success', __('lang.message_sent'));
     }
 
     public function showAndDeleteNotification($friendId, $notificationId)

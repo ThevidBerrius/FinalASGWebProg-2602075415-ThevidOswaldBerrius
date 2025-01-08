@@ -36,12 +36,12 @@ class AvatarController extends Controller
                 $user->avatar_id = $avatar->id;
                 $user->save();
 
-                return redirect()->back()->with('success', __('Avatar purchased successfully!'));
+                return redirect()->back()->with('success', __('lang.avatar_purchased_successfully'));
             } else {
-                return redirect()->back()->with('error', __('Not enough coins to purchase this avatar.'));
+                return redirect()->back()->with('error', __('lang.not_enough_coins'));
             }
         }
 
-        return redirect()->back()->with('error', __('Invalid avatar selection.'));
+        return redirect()->back()->with('error', __('lang.invalid_avatar_selection'));
     }
 }

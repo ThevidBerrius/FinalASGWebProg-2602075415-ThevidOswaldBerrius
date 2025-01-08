@@ -3,6 +3,32 @@
 @section('content')
 <div class="container">
     <h2>@lang('lang.users')</h2>
+
+    <form method="GET" action="{{ route('home') }}">
+        <div class="row mb-3">
+            <div class="col-md-4">
+                <label for="gender" class="form-label">@lang('lang.gender')</label>
+                <select name="gender" id="gender" class="form-select">
+                    <option value="">@lang('lang.select_gender')</option>
+                    <option value="male">@lang('lang.male')</option>
+                    <option value="female">@lang('lang.female')</option>
+                </select>
+            </div>
+            <div class="col-md-4">
+                <label for="occupation" class="form-label">@lang('lang.occupation')</label>
+                <select name="occupation" id="occupation" class="form-select">
+                    <option value="">@lang('lang.select_occupation')</option>
+                    @foreach ($occupations as $occupation)
+                        <option value="{{ $occupation->id }}">{{ $occupation->name }}</option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="col-md-4 d-flex align-items-end">
+                <button type="submit" class="btn btn-primary">@lang('lang.search')</button>
+            </div>
+        </div>
+    </form>
+
     @if (session('success'))
         <div class="alert alert-success">
             {{ session('success') }}

@@ -34,7 +34,7 @@ class NotificationController extends Controller
 
         $notification->delete();
 
-        return redirect()->back()->with('success', 'Action performed successfully.');
+        return redirect()->back()->with('success', __('lang.action_performed'));
     }
 
 }

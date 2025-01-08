@@ -48,10 +48,10 @@ class ProfileController extends Controller
             $user->avatar_id = $avatar->id;
             $user->save();
 
-            return redirect()->back()->with('success', __('Avatar updated successfully!'));
+            return redirect()->back()->with('success', __('lang.avatar_updated_successfully'));
         }
 
-        return redirect()->back()->with('error', __('Invalid avatar selection.'));
+        return redirect()->back()->with('error', __('lang.invalid_avatar_selection'));
     }
 
     public function removeFriend($friendId)
@@ -66,6 +66,6 @@ class ProfileController extends Controller
                 ->where('user_id', $friendId);
         })->delete();
 
-        return redirect()->back()->with('success', 'Friend Removed');
+        return redirect()->back()->with('success', __('lang.friend_removed'));
     }
 }

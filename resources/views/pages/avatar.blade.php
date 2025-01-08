@@ -20,6 +20,11 @@
         </div>
     @endif
 
+    <form action="{{ route('topUp') }}" method="POST" class="mb-4">
+        @csrf
+        <button type="submit" class="btn btn-success">@lang('lang.top_up')</button>
+    </form>
+
     <div class="row">
         @foreach ($avatars as $avatar)
             <div class="col-md-4">
