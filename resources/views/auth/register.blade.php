@@ -81,6 +81,25 @@
                         </div>
 
                         <div class="row mb-3">
+                            <label for="fields_of_work" class="col-md-4 col-form-label text-md-end">@lang('lang.fields_of_work')</label>
+                            <div class="col-md-6">
+                                <select id="fields_of_work" name="fields_of_work[]" class="form-control @error('fields_of_work') is-invalid @enderror" multiple required size="5">
+                                    @foreach($fieldsOfWork as $field)
+                                        <option value="{{ $field->id }}" {{ in_array($field->id, old('fields_of_work', [])) ? 'selected' : '' }}>
+                                            {{ $field->name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                                <small>@lang('lang.select_up_to_three')</small>
+                                @error('fields_of_work')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
                             <label for="gender" class="col-md-4 col-form-label text-md-end">@lang('lang.gender')</label>
 
                             <div class="col-md-6">
@@ -163,3 +182,18 @@
     </div>
 </div>
 @endsection
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const selectElement = document.getElementById('fields_of_work');
+
+        selectElement.addEventListener('change', function() {
+            const selectedOptions = Array.from(selectElement.selectedOptions);
+            
+            if (selectedOptions.length > 3) {
+                selectedOptions[selectedOptions.length - 1].selected = false;
+                alert('You can only select up to three fields of work.');
+            }
+        });
+    });
+</script>

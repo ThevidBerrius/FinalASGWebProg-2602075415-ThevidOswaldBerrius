@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\Avatar;
 use App\Models\AvatarTransaction;
+use App\Models\FieldOfWork;
 use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
@@ -41,8 +42,10 @@ class RegisterController extends Controller
     public function showRegistrationForm()
     {
         $occupations = Occupation::all();
-        return view('auth.register', compact('occupations'));
+        $fieldsOfWork = FieldOfWork::all();
+        return view('auth.register', compact('occupations', 'fieldsOfWork'));
     }
+
 
     /**
      * Get a validator for an incoming registration request.
@@ -57,6 +60,8 @@ class RegisterController extends Controller
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
             'occupation_id' => ['required', 'exists:occupations,id'],
+            'fields_of_work' => ['required', 'array', 'max:3'],
+            'fields_of_work.*' => ['exists:field_of_works,id'],
             'gender' => ['required', 'in:male,female'],
             'linkedin_username' => [
                 'required',
@@ -85,6 +90,8 @@ class RegisterController extends Controller
             'phone_number' => $data['phone_number'],
             'experience_years' => $data['experience_years'],
         ]);
+
+        $user->fieldOfWorks()->attach($data['fields_of_work']);
 
         $freeAvatar = Avatar::where('price', 0)->inRandomOrder()->first();
 

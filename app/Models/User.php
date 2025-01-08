@@ -26,6 +26,11 @@ class User extends Authenticatable
         return $this->hasMany(UserFOW::class);
     }
 
+    public function fieldOfWorks()
+    {
+        return $this->belongsToMany(FieldOfWork::class, 'user_f_o_w_s');
+    }
+
     public function friend()
     {
         return $this->belongsToMany(User::class, 'friends', 'user_id', 'friend_id')
